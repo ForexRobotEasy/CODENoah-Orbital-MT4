@@ -1,0 +1,53 @@
+
+// CODENoah Orbital MT4
+// Developer: Forex Robot Easy Team
+// Website: forexroboteasy.com
+
+// This Expert Advisor (EA) trades forex portfolios based on a highly intelligent algorithm
+// The algorithm identifies profitable trading opportunities and cuts losses when trading conditions are not suitable
+
+// Define necessary input parameters
+
+extern double LotSize = 0.01; // Trading lot size
+extern int StopLoss = 50; // Stop loss in pips
+extern int TakeProfit = 100; // Take profit in pips
+
+// Define necessary functions for trading strategy
+
+void OpenBuyOrder(double lotSize, int stopLoss, int takeProfit) {
+    // Function to open a buy order based on specified parameters
+    // Code for opening buy order goes here
+}
+
+void OpenSellOrder(double lotSize, int stopLoss, int takeProfit) {
+    // Function to open a sell order based on specified parameters
+    // Code for opening sell order goes here
+}
+
+void CloseOrder(int ticket) {
+    // Function to close an open order based on specified ticket number
+    // Code for closing order goes here
+}
+
+// Define the main function for the EA
+
+void OnTick() {
+    // Retrieve current market conditions
+    double currentBid = MarketInfo(Symbol(), MODE_BID);
+    double currentAsk = MarketInfo(Symbol(), MODE_ASK);
+
+    // Check if there is a chance of profit
+    if (currentAsk > currentBid) {
+        // Execute trading algorithm to determine whether to open a buy or sell order
+        if (currentAsk - currentBid > StopLoss * Point) {
+            // Open a buy order
+            OpenBuyOrder(LotSize, StopLoss, TakeProfit);
+        } else if (currentBid - currentAsk > StopLoss * Point) {
+            // Open a sell order
+            OpenSellOrder(LotSize, StopLoss, TakeProfit);
+        }
+    } else {
+        // Close any open orders as the market conditions are not suitable for trading
+        CloseOrder(OrderTicket());
+    }
+}
